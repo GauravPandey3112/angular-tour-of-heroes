@@ -12,6 +12,10 @@ export class MessageService {
     this.messages.push(message);
   }
 
+  getMessages():string[]{
+    return this.messages;
+  }
+
   clear(){
     this.messages=[];
   }

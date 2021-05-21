@@ -1,7 +1,33 @@
-<h1>{{ title }}</h1>
-<nav>
-    <a routerLink='/dashboard'>Dashboard</a>
-    <a routerLink='/heroes'>Heroes</a>
-</nav>
-<router-outlet></router-outlet>
-<app-message></app-message>
+
+
+
+<mat-sidenav-container>
+    <mat-sidenav #sidenav mode="side">
+        <mat-nav-list>
+            <app-sidenav></app-sidenav>
+            <a mat-list-item (click)="sidenav.toggle()">Close</a>
+        </mat-nav-list>
+        
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <mat-toolbar color="primary">
+            <button mat-icon-button>
+              <mat-icon (click)="sidenav.toggle()">menu</mat-icon>
+            </button>
+            <span>{{title | uppercase}}</span>
+            <div>
+                <a mat-button routerLink='/dashboard'>Dashboard</a>
+                <a mat-button routerLink='/heroes'>Heroes</a>
+                <a mat-button routerLink='/logs'>Logs</a>
+            </div>
+            <span class="example-spacer"></span>
+            <button mat-button  class="example-icon" aria-label="Example icon-button with share icon">Logout
+              <mat-icon color="warn">logout</mat-icon>
+            </button>
+        </mat-toolbar>
+        <router-outlet></router-outlet>
+        <!-- <app-message></app-message>  -->
+    </mat-sidenav-content>
+</mat-sidenav-container>
+
+

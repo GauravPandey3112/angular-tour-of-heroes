@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { subscribeOn } from 'rxjs/operators';
 import { MessageService } from '../message.service';
 
 @Component({
@@ -7,10 +8,13 @@ import { MessageService } from '../message.service';
   styleUrls: ['./message.component.css']
 })
 export class MessageComponent implements OnInit {
-
+ 
   constructor(public messageService:MessageService) { }
 
   ngOnInit(): void {
+    
   }
+
+  
 
 }

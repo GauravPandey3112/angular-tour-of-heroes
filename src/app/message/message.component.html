@@ -1,5 +1,9 @@
-<div *ngIf="messageService.messages.length">
+<div *ngIf="messageService.messages.length; else elseBlock">
     <h2>Messages</h2>
     <button class="clear" (click)='messageService.clear()'>Clear Messages</button>
     <div *ngFor="let message of messageService.messages">{{message}}</div>
 </div>
+<ng-template #elseBlock>
+    <h2>No Logs to display.</h2>
+</ng-template>
+
