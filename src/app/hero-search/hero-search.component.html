@@ -1,10 +1,14 @@
 <div class="search-component">
-    <label for="search-box">Hero Serch</label>
-    <input type="text" id="search-box" #searchBox (input)='search(searchBox.value)'>
+    <!-- <label for="search-box">Hero Search</label>
+    <input type="text" id="search-box" #searchBox (input)='search(searchBox.value)'> -->
+    <mat-form-field class="example-form-field">
+        <mat-label>Search Hero <mat-icon>search</mat-icon></mat-label>
+        <input matInput type="text" #searchBox (input)='search(searchBox.value)'>
+    </mat-form-field>
 
     <ul class="search-result">
         <li *ngFor="let hero of heroes$ | async">
-            <a routerLink='/detail/{{hero.id}}'>{{hero.name}}</a>
+            <a routerLink='/detail/{{hero._id}}'>{{hero.name}}</a>
         </li>
     </ul>
 </div>

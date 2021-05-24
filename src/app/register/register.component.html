@@ -1,0 +1,59 @@
+<div fxLayoutAlign="center center" fxFlexFill class="register-div">
+    <mat-card fxFlex="40">
+        <mat-toolbar color="primary">Join Heroes</mat-toolbar>
+        <!-- <form fxLayout="stretch" fxLayout="column" autocomplete="off">
+            <mat-form-field >
+                <input matInput type="name" placeholder="Name" #name="ngModel" required name="name"  [(ngModel)]="registerData.name">
+            </mat-form-field>
+            <small class="invalid" [hidden]="name.valid || name.untouched">Name is required</small>
+            <mat-form-field >
+              <input matInput type="email" required #email="ngModel" placeholder="Email" name="email" [(ngModel)]="registerData.email">
+            </mat-form-field>
+            <small class="invalid" [hidden]="email.valid || email.untouched">Email is required</small>
+            <mat-form-field >
+                <input matInput type="password" #password="ngModel" required placeholder="Password" name="password" [(ngModel)]="registerData.password">
+            </mat-form-field>
+            <small class="invalid" [hidden]="password.valid || password.untouched">Password is required</small>
+            <button mat-raised-button color="primary" type="submit" (click)="registerUser()">Sign-up</button>
+          </form> -->
+
+          <!-- New -->
+
+          <form [formGroup]="registerForm" fxLayout="stretch" fxLayout="column" (ngSubmit)="registerForm?.valid && registerUser()" novalidate>
+            
+              <mat-form-field>
+                <input id="name"
+                       matInput
+                       formControlName="name"
+                       [(ngModel)]="registerData.name"
+                       placeholder="Enter your name" />
+              </mat-form-field>
+      
+              <mat-form-field>
+                  <input id="email"
+                         matInput
+                         formControlName="email"
+                         [(ngModel)]="registerData.email"
+                         placeholder="Enter your email" />
+                </mat-form-field>
+      
+              <mat-form-field>
+                  <input id="password"
+                         matInput
+                         formControlName="password"
+                         [(ngModel)]="registerData.password"
+                         placeholder="Enter your password"
+                         [type]="hide ? 'password':'text'" />
+                    <mat-icon matSuffix (click)="hide = !hide">
+                      {{hide ? 'visibility' : 'visibility_off'}}
+                    </mat-icon>
+                </mat-form-field>
+      
+                <button mat-button type="submit" 
+                        class="mat-raised-button mat-primary" 
+                        [disabled]="!registerForm.valid">Register</button>
+                <button mat-button color="primary" routerLink="/login">Login</button>
+          </form>
+          
+    </mat-card>
+</div>

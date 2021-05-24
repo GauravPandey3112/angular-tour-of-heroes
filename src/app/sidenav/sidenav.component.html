@@ -1,7 +1,19 @@
     <div>
-        <h2>Logo</h2>
+        <!-- <h2>{{user.name}}</h2>
+        <h3>{{user.email}}</h3> -->
+        <mat-card class="hero-card"> 
+            
+            <img mat-card-image src="../../assets/profile.jpg" alt="Profile Image">
+            <mat-card-header>
+                <mat-card-title>
+                    {{user.name}}
+                </mat-card-title>
+                <mat-card-subtitle>{{user.email}}</mat-card-subtitle>
+                </mat-card-header>
+        </mat-card>
     </div>
-    <a mat-list-item routerLink='/dashboard'>Dashboard</a>
-    <a mat-list-item routerLink='/heroes'>Heroes</a>
-    <a mat-list-item routerLink='/logs'>Logs</a>
+    <mat-divider></mat-divider>
+    <a mat-list-item routerLink='/dashboard' routerLinkActive="is-active">Dashboard</a>
+    <a mat-list-item routerLink='/heroes' routerLinkActive="is-active">Heroes</a>
+    <a mat-list-item routerLink='/logs'routerLinkActive="is-active">Logs</a>
     

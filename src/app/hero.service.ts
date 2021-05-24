@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import {catchError, map , tap } from 'rxjs/operators'
 
 import { Hero } from './hero';
-import { Heroes } from './mock-heroes';
+import { Heroes } from './heroes';
 import { Observable, of } from 'rxjs';
 import { MessageService } from './message.service';
 
@@ -13,9 +13,9 @@ import { MessageService } from './message.service';
 export class HeroService {
 
   // :base/:collectionName
-  private heroesUrl='api/heroes'
+  private heroesUrl='http://localhost:3000/heroes'
   httpOptions={
-    headers:new HttpHeaders({'Content-Type':'application/json'})
+    headers:new HttpHeaders({'responseType':'text'})
   };
 
 
@@ -31,13 +31,22 @@ export class HeroService {
   // }
 
   //get Heroes from server
-  getHeroes():Observable<Hero[]>{
-    return this.http.get<Hero[]>(this.heroesUrl)
-      .pipe(
-        tap(_ => this.log('fetched Heroes')),
-        catchError(this.handleError<Hero[]>('getHeroes',[]))
-      )
+  // getHeroes():Observable<Hero[]>{
+  //   return this.http.get<Hero[]>(this.heroesUrl)
+  //     .pipe(
+  //       tap(_ => this.log('fetched Heroes')),
+  //       catchError(this.handleError<Hero[]>('getHeroes',[]))
+  //     )
+  // }
+
+  get_Heroes(){
+    return this.http.get<any>(this.heroesUrl)
+        .pipe(
+              tap(_ => this.log('fetched Heroes')),
+                // catchError(this.handleError<Hero[]>('getHeroes',[]))
+            )
   }
+
 
   private log(message:string){
     this.messageService.add(`HeroService: ${message}`)
@@ -50,48 +59,51 @@ export class HeroService {
   //   return of(hero);
   // }
 
-  getHero(id:number):Observable<Hero>{
+  getHero(id:string):Observable<Heroes>{
     const url=`${this.heroesUrl}/${id}`;
-    return this.http.get<Hero>(url)
+    return this.http.get<Heroes>(url)
       .pipe(
         tap(_ => this.log(`fetched Hero with ID= ${id}`)),
-        catchError(this.handleError<Hero>(`getHero id=${id}`))
+        catchError(this.handleError<Heroes>(`getHero id=${id}`))
       )
   }
 
-  updateHero(hero:Hero):Observable<any>{
-    return this.http.put(this.heroesUrl,hero,this.httpOptions).pipe(
-      tap(_=> this.log(`Update Hero with ID=${hero.id}`)),
+  updateHero(hero:Heroes):Observable<any>{
+    return this.http.post(this.heroesUrl,hero,this.httpOptions).pipe(
+      tap(_=> this.log(`Update Hero with ID=${hero._id}`)),
       catchError(this.handleError<any>('Update Hero'))
     )
   }
 
-  addHero(hero: Hero):Observable<Hero>{
-    return this.http.post<Hero>(this.heroesUrl,hero,this.httpOptions).pipe(
-      tap((newHero:Hero)=> this.log(`Added hero w/ id=${newHero.id}`)),
-      catchError(this.handleError<Hero>('Add Hero'))
+  addHero(hero: Partial<Heroes>):Observable<Heroes>{
+    const url=`http://localhost:3000/add-hero`
+    return this.http.post<Heroes>(url,hero,this.httpOptions).pipe(
+      tap((newHero:Heroes)=> this.log(`Added hero ${newHero.name}`)),
+      catchError(this.handleError<Heroes>('Add Hero'))
     )
   }
 
-  deleteHero(id:number):Observable<Hero>{
-    const url=`${this.heroesUrl}/${id}`
+  deleteHero(id:string):Observable<Heroes>{
+    const url=`http://localhost:3000/delete/${id}`
 
-    return this.http.delete<Hero>(url,this.httpOptions).pipe(
+    return this.http.delete<Heroes>(url).pipe(
       tap(_=> this.log(`deleted Hero with Id= ${id}`)),
-      catchError(this.handleError<Hero>('Delete Hero'))
+      catchError(this.handleError<Heroes>('Delete Hero'))
     )
   }
 
-  searchHeroes(term:string):Observable<Hero[]>{
+  searchHeroes(term:string):Observable<Heroes[]>{
     if(!term.trim()){
       return of([])
     }
-    return this.http.get<Hero[]>(`${this.heroesUrl}/?name=${term}`).pipe(
+    return this.http.get<Heroes[]>(`http://localhost:3000/search/?name=${term}`).pipe(
       tap(x=> x.length? this.log(`found Heroes matching "${term}"`): this.log(`no Heroes matching "${term}"`)),
-      catchError(this.handleError<Hero[]>('searchHeroes',[]))
+      catchError(this.handleError<Heroes[]>('searchHeroes',[]))
       
     )
   }
+
+  
 
   /**
  * Handle Http operation that failed.

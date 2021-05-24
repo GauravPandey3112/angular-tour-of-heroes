@@ -1,1 +1,17 @@
-<p>login works!</p>
+<div fxLayoutAlign="center center" fxFlexFill class="login-div">
+    <mat-card fxFlex="25">
+        <mat-toolbar color="primary">Login Details</mat-toolbar>
+
+        <form fxLayout="stretch" fxLayout="column">
+            <mat-form-field >
+              <input matInput type="email" #email="ngModel" (ngModelChange)="authorized=true" placeholder="Email" name="email" [(ngModel)]="loginData.email">
+            </mat-form-field>
+            <mat-form-field >
+                <input matInput type="password" placeholder="Password" (ngModelChange)="authorized=true" name="password" [(ngModel)]="loginData.password">
+            </mat-form-field>
+            <div [hidden]="authorized" class="invalid">Invalid Email or Password!</div>
+            <button mat-raised-button color="primary" type="submit" (click)="loginUser()">login</button>
+          </form>
+          
+    </mat-card>
+</div>

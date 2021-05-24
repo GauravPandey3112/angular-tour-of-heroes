@@ -1,8 +1,11 @@
-<h2>My Heroes</h2>
-<div class="heroes-menu">
-    <a *ngFor="let hero of heroes" routerLink="/detail/{{hero.id}}">
-        {{hero.name}}
-    </a>
+<div class="dashboard">
+    <app-hero-search></app-hero-search>
+    <h2>My Heroes</h2>
+    <div class="heroes-menu">
+        <a mat-button *ngFor="let hero of heroes" routerLink="/detail/{{hero._id}}">
+            {{hero.name}}
+        </a>
+    </div>
 </div>
 
-<app-hero-search></app-hero-search>
+

@@ -1,4 +1,4 @@
-.heroes {
+/* .heroes {
     margin: 0 0 2em 0;
     list-style-type: none;
     padding: 0;
@@ -85,4 +85,15 @@
   .delete:hover {
     background-color: #525252;
     color: white;
+  } */
+
+  .example-form-field {
+    width: 400px;
+  }
+  .hero{
+    margin: 30px;
+  }
+
+  mat-form-field{
+    margin-top: 20px;
   }

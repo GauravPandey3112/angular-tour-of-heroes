@@ -5,11 +5,14 @@ form{
     padding: 20px;
 }
 
-.login-div{
+.register-div{
     background-color: rgb(214, 214, 233);
-    /* background-color: black; */
 }
 
 .invalid{
     color: red;
+}
+
+mat-icon{
+    cursor: pointer;
 }

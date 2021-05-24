@@ -4,6 +4,7 @@ import { Location } from '@angular/common';
 
 import { Hero } from '../hero';
 import { HeroService } from '../hero.service';
+import { Heroes } from '../heroes';
 
 @Component({
   selector: 'app-hero-details',
@@ -11,7 +12,9 @@ import { HeroService } from '../hero.service';
   styleUrls: ['./hero-details.component.css']
 })
 export class HeroDetailsComponent implements OnInit {
-  @Input() hero?:Hero;
+  // @Input() hero?:Hero;
+  @Input() hero?:Heroes;
+  toEdit=false;
 
   constructor(
     private route:ActivatedRoute,
@@ -24,7 +27,7 @@ export class HeroDetailsComponent implements OnInit {
   }
 
   getHero():void{
-    const id= Number(this.route.snapshot.paramMap.get('id'));
+    const id:string= this.route.snapshot.paramMap.get('id') || '';
     this.heroService.getHero(id)
       .subscribe(data=> this.hero=data)
   }
@@ -36,8 +39,15 @@ export class HeroDetailsComponent implements OnInit {
   save():void{
     if(this.hero){
       this.heroService.updateHero(this.hero)
-        .subscribe(()=> this.goBack())
+        .subscribe(()=> {
+          this.goBack()
+        })
     }
   }
 
+  edit():void{
+    this.toEdit=true;
+    console.log("Hllo");
+    
+  }
 }

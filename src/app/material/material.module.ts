@@ -7,6 +7,9 @@ import {MatIconModule} from '@angular/material/icon'
 import {MatToolbarModule} from '@angular/material/toolbar'
 import {MatSidenavModule} from '@angular/material/sidenav'
 import {MatListModule} from '@angular/material/list'
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatCardModule} from '@angular/material/card';
+import {MatDividerModule} from '@angular/material/divider';
 
 const materialComponents=[
   MatButtonModule,
@@ -16,7 +19,10 @@ const materialComponents=[
   MatIconModule,
   MatToolbarModule,
   MatSidenavModule,
-  MatListModule
+  MatListModule,
+  MatFormFieldModule,
+  MatCardModule,
+  MatDividerModule
 ]
 
 

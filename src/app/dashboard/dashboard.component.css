@@ -12,6 +12,7 @@ h2{
     justify-content: space-around;
 }
 
+
 a {
     background-color: #3f525c;
     border-radius: 2px;
@@ -22,14 +23,19 @@ a {
     color: #fff;
     text-align: center;
     width: 100%;
+    height: 80px;
     min-width: 70px;
     margin: .5rem auto;
     box-sizing: border-box;
-  
+    background-image:url('../../assets/avengers-workout.webp');
     /* flexbox */
     order: 0;
     flex: 0 1 auto;
     align-self: auto;
+  }
+
+  app-hero-search{
+    float: right;
   }
   
   @media (min-width: 600px) {
@@ -41,4 +47,9 @@ a {
   
   a:hover {
     background-color: #000;
+  }
+
+  .dashboard{
+    margin: 30px;
+    /* background-image:url('../../assets/avengers-workout.webp'); */
   }
