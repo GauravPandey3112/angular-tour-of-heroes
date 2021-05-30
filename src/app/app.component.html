@@ -1,35 +1,6 @@
+<app-nav1></app-nav1>
 
 
 
-<mat-sidenav-container>
-    <mat-sidenav #sidenav mode="side">
-        <mat-nav-list>
-            <app-sidenav *ngIf="authService.loggedIn()"></app-sidenav>
-            <a mat-list-item *ngIf="authService.loggedIn()" (click)="sidenav.toggle()">Close</a>
-        </mat-nav-list>
         
-    </mat-sidenav>
-    <mat-sidenav-content>
-        <mat-toolbar  color="primary">
-            <button *ngIf="authService.loggedIn()" mat-icon-button>
-              <mat-icon  (click)="sidenav.toggle()">menu</mat-icon>
-            </button>
-            <span>{{title | uppercase}}</span>
-            <div class="nav-menu">
-                <a mat-button *ngIf="authService.loggedIn()" routerLink='/dashboard' routerLinkActive="active">Dashboard</a>
-                <a mat-button *ngIf="authService.loggedIn()" routerLink='/heroes' routerLinkActive="active">Heroes</a>
-                <a mat-button *ngIf="authService.loggedIn()" routerLink='/logs' routerLinkActive="active">Logs</a>
-            </div>
-            <span class="example-spacer"></span>
-            <a mat-button *ngIf="!authService.loggedIn()" routerLink='/register' routerLinkActive="active">Register</a>
-            <a mat-button *ngIf="!authService.loggedIn()" routerLink='/login' routerLinkActive="active">Login</a>
-            <a mat-button *ngIf="authService.loggedIn()" (click)="authService.logout()" routerLinkActive="active">Logout
-              <mat-icon color="warn">logout</mat-icon>
-            </a>
-        </mat-toolbar>
-        <router-outlet></router-outlet>
-        <!-- <app-message></app-message>  -->
-    </mat-sidenav-content>
-</mat-sidenav-container>
-
-
+    

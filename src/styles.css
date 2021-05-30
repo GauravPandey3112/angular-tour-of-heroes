@@ -35,6 +35,17 @@ body {
 }
 
 .active{
-  color: #6200EE;
-  background-color: #fff;
+  color: #fff;
+  background-color: #0076ae;
 }
+
+/* .error.mat-snack-bar-container{
+  background: #f44336;
+  background: #fff;
+  color: black;
+}
+
+.success.mat-snack-bar-container{
+  background: #00cc00;
+  color: #fff;
+} */

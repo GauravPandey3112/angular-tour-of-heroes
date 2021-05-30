@@ -1,3 +1,18 @@
 .logs{
     margin: 30px;
+    position: relative;
+    overflow-x: hidden;
+}
+
+mat-list-item{
+    margin-top: 10px;
+    /* background-color: #C5CAE9; */
+}
+
+.logs button{
+    position: fixed;
+    bottom:10px;
+    right: 20px;
+    left: auto;
+    z-index: 2;
 }

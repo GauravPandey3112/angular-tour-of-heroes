@@ -1,0 +1,32 @@
+img{
+    max-width: 200px;
+    max-height: 200px;
+    object-fit: contain;
+    margin-top: 15px;
+    overflow: hidden;
+}
+
+
+
+form{
+    position: relative;
+}
+mat-form-actions{
+    position: absolute;
+    bottom: 10px;
+}
+
+mat-form-field{
+      width: 100%;
+  }
+ma-dialog-content{
+    margin-bottom: 10px;
+}
+/* .input-field{
+    margin-top: 1%;
+} */
+.file-input{
+    margin-top: 2%;
+    margin-bottom: 1%;
+}
+

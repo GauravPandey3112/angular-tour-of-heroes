@@ -87,13 +87,29 @@
     color: white;
   } */
 
-  .example-form-field {
-    width: 400px;
-  }
+  
   .hero{
     margin: 30px;
+    position: relative;
+    height: 100%;
   }
 
   mat-form-field{
     margin-top: 20px;
   }
+
+  .add-button{
+  
+    right: 20px;
+    bottom: 10px;
+    left: auto;
+    position: fixed;
+  }
+
+  .add-button:hover{
+    background: #db6b0a;
+  }
+
+  /* .tooltip-color{
+    background: #f06292;
+    /* color:#fff; */

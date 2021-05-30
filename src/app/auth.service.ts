@@ -5,14 +5,15 @@ import { Observable } from 'rxjs';
 import {catchError, map , tap } from 'rxjs/operators'
 import { MessageService } from './message.service';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private registerUrl="http://localhost:3000/register"
-  private loginUrl="http://localhost:3000/login"
-  private userUrl="http://localhost:3000/user"
+  private registerUrl=`${environment.api_url}/register`
+  private loginUrl=`${environment.api_url}/login`
+  private userUrl=`${environment.api_url}/user`
   
   constructor(
     private http:HttpClient,

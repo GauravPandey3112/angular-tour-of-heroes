@@ -6,6 +6,7 @@ import { Hero } from './hero';
 import { Heroes } from './heroes';
 import { Observable, of } from 'rxjs';
 import { MessageService } from './message.service';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,7 @@ import { MessageService } from './message.service';
 export class HeroService {
 
   // :base/:collectionName
-  private heroesUrl='http://localhost:3000/heroes'
+  private heroesUrl=`${environment.api_url}/heroes`
   httpOptions={
     headers:new HttpHeaders({'responseType':'text'})
   };
@@ -40,7 +41,8 @@ export class HeroService {
   // }
 
   get_Heroes(){
-    return this.http.get<any>(this.heroesUrl)
+    const url=`${this.heroesUrl}/view-heroes`
+    return this.http.get<any>(url)
         .pipe(
               tap(_ => this.log('fetched Heroes')),
                 // catchError(this.handleError<Hero[]>('getHeroes',[]))
@@ -60,7 +62,7 @@ export class HeroService {
   // }
 
   getHero(id:string):Observable<Heroes>{
-    const url=`${this.heroesUrl}/${id}`;
+    const url=`${this.heroesUrl}/hero/${id}`;
     return this.http.get<Heroes>(url)
       .pipe(
         tap(_ => this.log(`fetched Hero with ID= ${id}`)),
@@ -68,23 +70,52 @@ export class HeroService {
       )
   }
 
-  updateHero(hero:Heroes):Observable<any>{
-    return this.http.post(this.heroesUrl,hero,this.httpOptions).pipe(
-      tap(_=> this.log(`Update Hero with ID=${hero._id}`)),
-      catchError(this.handleError<any>('Update Hero'))
+  updateHero(id:string,name:string,description:string, image:File):Observable<any>{
+      const heroData = new FormData();
+      heroData.append("id", id);
+      heroData.append("name", name);
+      heroData.append("description", description);
+      heroData.append("image", image, name);
+      const url=`${this.heroesUrl}/update-hero`
+    return this.http.post(url,heroData,this.httpOptions).pipe(
+      tap(_=> this.log(`${name} details Updated`)),
+      // catchError(this.handleError<any>('Update Hero'))
     )
   }
 
-  addHero(hero: Partial<Heroes>):Observable<Heroes>{
-    const url=`http://localhost:3000/add-hero`
-    return this.http.post<Heroes>(url,hero,this.httpOptions).pipe(
+  updateHeroWithoutImage(id:string,name:string,description:string):Observable<any>{
+    console.log("ID:",id);
+    
+    const heroData = {
+      id,
+      name,
+      description,
+    }
+    console.log("api:",heroData);
+    
+    const url=`${this.heroesUrl}/update-hero-details`
+  return this.http.post(url,heroData,this.httpOptions).pipe(
+    tap(_=> this.log(`${name} details Updated`)),
+    // catchError(this.handleError<any>('Update Hero'))
+  )
+}
+
+  addHero(name:string,description:string, image:File ):Observable<Heroes>{
+    const heroData = new FormData();
+    heroData.append("name", name);
+    heroData.append("description", description);
+    heroData.append("image", image, name);
+    const url=`${this.heroesUrl}/add-hero`
+    return this.http.post<Heroes>(url,heroData,this.httpOptions).pipe(
       tap((newHero:Heroes)=> this.log(`Added hero ${newHero.name}`)),
-      catchError(this.handleError<Heroes>('Add Hero'))
+      // catchError(this.handleError<Heroes>('Add Hero'))
     )
   }
 
   deleteHero(id:string):Observable<Heroes>{
-    const url=`http://localhost:3000/delete/${id}`
+    console.log("DeleteL",id);
+    
+    const url=`${this.heroesUrl}/delete/${id}`
 
     return this.http.delete<Heroes>(url).pipe(
       tap(_=> this.log(`deleted Hero with Id= ${id}`)),
@@ -96,7 +127,9 @@ export class HeroService {
     if(!term.trim()){
       return of([])
     }
-    return this.http.get<Heroes[]>(`http://localhost:3000/search/?name=${term}`).pipe(
+    console.log(term);
+    const url=`${this.heroesUrl}/search?name=${term}`
+    return this.http.get<Heroes[]>(url).pipe(
       tap(x=> x.length? this.log(`found Heroes matching "${term}"`): this.log(`no Heroes matching "${term}"`)),
       catchError(this.handleError<Heroes[]>('searchHeroes',[]))
       

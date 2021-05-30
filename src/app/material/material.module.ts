@@ -10,6 +10,12 @@ import {MatListModule} from '@angular/material/list'
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatCardModule} from '@angular/material/card';
 import {MatDividerModule} from '@angular/material/divider';
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatGridListModule} from '@angular/material/grid-list';
+import {MatMenuModule} from '@angular/material/menu';
+import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 const materialComponents=[
   MatButtonModule,
@@ -22,7 +28,13 @@ const materialComponents=[
   MatListModule,
   MatFormFieldModule,
   MatCardModule,
-  MatDividerModule
+  MatDividerModule,
+  MatDialogModule,
+  MatGridListModule,
+  MatMenuModule,
+  MatTooltipModule,
+  MatAutocompleteModule,
+  MatSnackBarModule
 ]
 
 

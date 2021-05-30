@@ -19,17 +19,22 @@
     background-color: black;
   } */
 
-  .example-spacer {
-    flex: 1 1 auto;
-  }
+  
 
   mat-sidenav-container{
     height: 100%;
-    background-color:rgb(244, 247, 255);
+    /* background-color:rgb(244, 247, 255); */
   }
   mat-sidenav{
     /* background-color:blue; */
+
+    /* make it auto */
     width: 200px;
+    /* height: 100%; */
+  }
+
+  mat-sidenav .hide{
+    display: none;
   }
 
   .nav-menu{

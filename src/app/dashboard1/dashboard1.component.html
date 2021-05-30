@@ -1,0 +1,46 @@
+
+
+
+<div class="container" fxLayout="row wrap" fxLayoutAlign="space-evenly start" fxLayoutGap="1">
+
+  <mat-card fxFlex="98" *ngIf="!heroes[0]" class="add-hero-card">
+      <mat-card-title class="add-hero">
+        <span class="add-hero">Let's Go</span>
+          <br>
+          <br>
+      <span class="add-hero">And</span>
+      <br>
+      <br>
+      <span class="add-hero">Add</span>
+      <br>
+      <br>
+      <span class="add-hero">Your</span>
+      <br>
+      <br>
+      <span class="add-hero">Hero</span>
+      <br>
+      <br>
+      </mat-card-title>
+    <mat-card-content>
+      
+      <span fxLayoutAlign="center center" class="add-hero"><button mat-fab color="accent" routerLink="/heroes"><mat-icon>add</mat-icon></button></span>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- loop over the products -->
+  <mat-card fxFlex="48"  fxFlex.xs="98" *ngFor="let hero of heroes" class="hero-card">
+    
+    <mat-card-content>
+      <img class="image" mat-card-image [src]="hero.imagePath" alt="photo">
+    </mat-card-content>
+    <mat-card-title>{{hero.name}}</mat-card-title>
+    <mat-card-actions  fxLayoutAlign="space-between center">
+      <span *ngIf="!hero.updatedBy" style="font-weight: bold;">Added By- {{hero.addedBy}}</span>
+      <span *ngIf="hero.updatedBy" style="font-weight: bold;">Updated By- {{hero.addedBy}}</span>
+      <button  mat-mini-fab color="accent" matTooltip="Details" class="detailBtn" routerLink="/detail/{{hero._id}}"><mat-icon>arrow_forward</mat-icon></button>
+    </mat-card-actions>
+  </mat-card>
+  <!-- <button mat-fab matTooltip="Add Hero" matTooltipClass="tooltip-color" class="add-button" color="accent">
+    <mat-icon>add</mat-icon>
+  </button> -->
+</div>

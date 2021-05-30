@@ -1,0 +1,88 @@
+<mat-sidenav-container *ngIf="authService.loggedIn()" class="sidenav-container">
+  <mat-sidenav #drawer class="sidenav" fixedInViewport
+      [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+      [mode]="(isHandset$ | async) ? 'over' : 'side'"
+      [opened]="(isHandset$ | async) === false">
+    <mat-toolbar class="menu-toolbar">Menu</mat-toolbar>
+    <mat-card class="hero-card"> 
+            
+      <img mat-card-image src="../../assets/profile.jpg" alt="Profile Image">
+      <mat-card-header>
+          <mat-card-title>
+              {{user.name}}
+          </mat-card-title>
+          <mat-card-subtitle>{{user.email}}</mat-card-subtitle>
+        </mat-card-header>
+    </mat-card>
+    <mat-nav-list>
+      <a mat-list-item routerLink='/dashboard' routerLinkActive="isActive">Dashboard</a>
+      <a mat-list-item routerLink='/heroes' routerLinkActive="isActive">Heroes</a>
+      <a mat-list-item routerLink='/logs'routerLinkActive="isActive">Logs</a>
+      <a mat-list-item (click)="authService.logout()" routerLinkActive="active">Logout</a>
+      <a mat-list-item *ngIf="isHandset$ | async" (click)="drawer.toggle()">Close</a>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+      <mat-toolbar-row fxLayoutAlign="space-between center">
+        <div fxLayout="row" fxLayoutGap="20px">
+            <button
+              type="button"
+              aria-label="Toggle sidenav"
+              mat-icon-button
+              (click)="drawer.toggle()"
+              *ngIf="isHandset$ | async">
+              <mat-icon>menu</mat-icon>
+            </button>
+            <span>{{title | uppercase}}</span>
+            <p></p>
+            <div class="dashboard-menu" *ngIf="!(isHandset$ | async)">
+                <a mat-button routerLink='/dashboard' routerLinkActive="active">Dashboard</a>
+                <a mat-button routerLink='/heroes' routerLinkActive="active">Heroes</a>
+                <a mat-button routerLink='/logs' routerLinkActive="active">Logs</a>
+            </div>
+        </div>
+        <div class="search-icon" fxLayout="row" >
+          
+          <!-- <a *ngIf="!showSearch" style="cursor: pointer;" (click)="showSearch=true;" ><mat-icon>search</mat-icon></a> -->
+          <app-hero-search></app-hero-search>
+          
+        </div>
+      </mat-toolbar-row>
+      <mat-toolbar-row class="dashboard-menu" *ngIf="isHandset$ | async" fxLayout>
+          <div fxLayoutAlign="space-evenly center" fxFill >
+              <a mat-button routerLink='/dashboard' routerLinkActive="active">Dashboard</a>
+              <a mat-button routerLink='/heroes' routerLinkActive="active">Heroes</a>
+              <a mat-button routerLink='/logs' routerLinkActive="active">Logs</a>
+          </div>
+      </mat-toolbar-row>
+    </mat-toolbar>
+    <!-- Add Content Here -->
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+
+<mat-sidenav-container *ngIf="!authService.loggedIn()" class="sidenav-container">
+  <mat-toolbar color="primary" >
+      <mat-toolbar-row fxLayoutAlign="space-between center">
+          <div fxLayout="row" fxLayoutGap="20px">
+              <div>{{title | uppercase}}</div>
+          </div>
+          <div>      
+                <a mat-button  routerLink='/register' routerLinkActive="active">Register</a>
+                <a mat-button  routerLink='/login' routerLinkActive="active">Login</a>
+                
+          </div>
+      </mat-toolbar-row>
+      <!-- <mat-toolbar-row *ngIf="deviceXs" fxLayout>
+          <div *ngIf="authService.loggedIn() && deviceXs" fxLayoutAlign="space-between end" fxFill >
+              <a mat-button routerLink='/dashboard' routerLinkActive="active">Dashboard</a>
+              <a mat-button routerLink='/heroes' routerLinkActive="active">Heroes</a>
+              <a mat-button routerLink='/logs' routerLinkActive="active">Logs</a>
+          </div>
+      </mat-toolbar-row> -->
+      
+
+  </mat-toolbar>
+  <router-outlet></router-outlet>
+</mat-sidenav-container>

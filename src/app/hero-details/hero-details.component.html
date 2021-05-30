@@ -1,46 +1,29 @@
-<div *ngIf="hero" fx>
-    <!-- Binding Data to new hero property and format with pipe -->
-    <!-- <h3>{{hero.name | uppercase}} Details:</h3> -->
-    <!-- <div><span>Id: </span>{{hero._id}}</div> -->
-    <!-- <div><span>Name: </span>{{hero.name}}</div> -->
 
-    <!-- two way binding using ngModel -->
-    <!-- <div>
-        <mat-label for="name">Hero Name: </mat-label>
-        <input matInput type="text" [(ngModel)]="hero.name" id="name">
-        <button (click)='save()'>Save</button>
-    </div> -->
+<div class="login-div" *ngIf="hero">
+    <mat-toolbar>
+        <button mat-icon-button color="accent" matTooltip="Go Back" mat-button  (click)='goBack()'> <mat-icon>arrow_back</mat-icon></button>
+        <span class="example-spacer"></span>
+        <span class="toolbar-title">Hero Details</span>
+        <span class="example-spacer"></span>
+        <button mat-icon-button matTooltip="Edit" (click)="openDialog()" color="accent">
+          <mat-icon>edit</mat-icon>
+        </button>
+      </mat-toolbar>
+      
 
-    <!-- <button (click)='goBack()'>Go Back</button> -->
-
-    
-
-    <mat-card class="hero-card"> 
-        <mat-card-header>
-        <mat-card-title *ngIf="!toEdit">
-            {{hero.name | uppercase}}
-            <a (click)="edit()"><mat-icon  class="edit-icon">edit</mat-icon></a>
-        </mat-card-title>
-        <mat-card-title *ngIf="toEdit">
-            <mat-form-field>
-                <mat-label>Hero name: </mat-label>
-                <input matInput type="text" [(ngModel)]="hero.name" id="name">
-            </mat-form-field>
-            <button mat-raised-button (click)='save()'>Save</button>
-        </mat-card-title>
-        <mat-card-subtitle>Hero</mat-card-subtitle>
-        </mat-card-header>
-        <img mat-card-image src="../../assets/avengers-workout.webp" alt="Photo of a Shiba Inu">
-        <mat-card-content>
-          <p>
-            The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.
-            A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally
-            bred for hunting.
-          </p>
-        </mat-card-content>
-        <mat-card-actions>
-            <button color="primary" mat-button (click)='goBack()'>Go Back <mat-icon>arrow_back</mat-icon></button>
-        </mat-card-actions>
-      </mat-card>
+      <div class="container" fxLayout="column" flexLayoutAlign="start start" fxLayoutGap="1%">
+          <div fxFlex="40" class="banner">
+            <img [src]="hero.imagePath" alt="Photo of {{hero.name}}">
+          </div>
+          <div class="content" fxFlex="60">
+              <h2>Name: {{hero.name}}</h2>
+              <h2>Description:</h2>
+              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur eveniet fuga officiis reiciendis unde distinctio eius, odit consequuntur aperiam minus libero, nostrum neque doloremque voluptatum.</p>
+              <div style="font-style: oblique;"> 
+                <span *ngIf="!hero.updatedBy" style="font-weight: bold;">Added By- {{hero.addedBy}}</span>
+                <span *ngIf="hero.updatedBy" style="font-weight: bold;">Updated By- {{hero.addedBy}}</span>
+              </div>
+          </div>
+         
+      </div>
 </div>
-

@@ -1,5 +1,5 @@
 <div fxLayoutAlign="center center" fxFlexFill class="register-div">
-    <mat-card fxFlex="40">
+    <mat-card fxFlex="40" fxFlex.xs="80%">
         <mat-toolbar color="primary">Join Heroes</mat-toolbar>
         <!-- <form fxLayout="stretch" fxLayout="column" autocomplete="off">
             <mat-form-field >
@@ -19,7 +19,7 @@
 
           <!-- New -->
 
-          <form [formGroup]="registerForm" fxLayout="stretch" fxLayout="column" (ngSubmit)="registerForm?.valid && registerUser()" novalidate>
+          <form [formGroup]="registerForm" fxLayout="stretch" fxLayout="column" (ngSubmit)="registerForm?.valid && registerUser()" novalidate autocomplete="off">
             
               <mat-form-field>
                 <input id="name"
@@ -35,9 +35,10 @@
                          formControlName="email"
                          [(ngModel)]="registerData.email"
                          placeholder="Enter your email" />
+                         <mat-error *ngIf="!registerForm.hasError('email')">Enter a Valid Mail</mat-error>
                 </mat-form-field>
       
-              <mat-form-field>
+              <mat-form-field floatLabel="never" hintLabel="Min 6 characters">
                   <input id="password"
                          matInput
                          formControlName="password"
@@ -47,12 +48,11 @@
                     <mat-icon matSuffix (click)="hide = !hide">
                       {{hide ? 'visibility' : 'visibility_off'}}
                     </mat-icon>
+                    
                 </mat-form-field>
       
-                <button mat-button type="submit" 
-                        class="mat-raised-button mat-primary" 
+                <button mat-raised-button color="primary" type="submit" 
                         [disabled]="!registerForm.valid">Register</button>
-                <button mat-button color="primary" routerLink="/login">Login</button>
           </form>
           
     </mat-card>

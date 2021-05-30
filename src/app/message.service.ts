@@ -4,19 +4,34 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class MessageService {
-  messages:string[]=[];
+  messages:string[]= [];
 
   constructor() { }
 
   add(message:string){
+    if(localStorage.getItem('logs')===null){
+      this.messages=[]
+    }else{
+     const logs=(localStorage.getItem('logs'))
+      if(typeof logs === 'string'){
+        this.messages=JSON.parse(logs);
+      }
+    }
     this.messages.push(message);
+    localStorage.setItem('logs',JSON.stringify(this.messages))
   }
 
   getMessages():string[]{
-    return this.messages;
+     const logs=(localStorage.getItem('logs'));
+     if(typeof logs === 'string'){
+       this.messages=JSON.parse(logs)
+     }
+
+     return this.messages;
   }
 
   clear(){
+    localStorage.removeItem('logs');
     this.messages=[];
   }
 }

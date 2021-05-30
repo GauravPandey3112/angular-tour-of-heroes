@@ -1,8 +1,8 @@
 <div fxLayoutAlign="center center" fxFlexFill class="login-div">
-    <mat-card fxFlex="25">
+    <mat-card fxFlex="40%" fxFlex.xs="80%">
         <mat-toolbar color="primary">Login Details</mat-toolbar>
 
-        <form fxLayout="stretch" fxLayout="column">
+        <form fxLayout="stretch" fxLayout="column" autocomplete="off">
             <mat-form-field >
               <input matInput type="email" #email="ngModel" (ngModelChange)="authorized=true" placeholder="Email" name="email" [(ngModel)]="loginData.email">
             </mat-form-field>

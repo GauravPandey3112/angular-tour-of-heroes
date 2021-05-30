@@ -36,7 +36,6 @@ export class RegisterComponent implements OnInit {
       'password': [this.registerData.password, [
         Validators.required,
         Validators.minLength(6),
-        Validators.maxLength(30)
       ]]
     });
   }

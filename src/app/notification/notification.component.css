@@ -1,0 +1,17 @@
+.content{
+    border: 1px solid white;
+    border-radius: 4px;
+    padding: 1%;
+    margin-top: 1%;
+    margin-bottom: 1%;
+}
+
+.success button{
+    background: green;
+    color: #fff;
+}
+
+.error button{
+    background: #f44336;
+    color: #fff;
+}
