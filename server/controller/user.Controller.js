@@ -81,25 +81,97 @@ const userController={
     addHero:(req,res)=>{
         let heroData=req.body;
         console.log("HeroAdd:",heroData);
-        let hero=new heroModel({name:heroData.name});
+        const imagePath = `${process.env.BASE_URL}/images/` + req.file.filename; 
 
-        hero.save((err,hero)=>{
-            if(err){
-                console.error(err);
-            }else{
-                res.status(200).send(hero)
-            }
-        })
-    },
-    updateHero:(req,res)=>{
-        let id=req.body._id;
-        let heroData=req.body;
-        heroModel.findOneAndUpdate({_id:id},{name:heroData.name}).then((result) => {
-            res.status(200).send('Hero Updated')
+        let token=req.headers.authorization.split(' ')[1];
+        let payload=jwt.verify(token,process.env.SECRET_KEY);
+        let userId=payload.subject;
+        userModel.findOne({_id:userId}).then(async (result) => {
+        if(!result){
+                res.status(401).send('No User Found')
+        }else{
+            let hero=new heroModel({
+                name:heroData.name,
+                imagePath:imagePath,
+                description:heroData.description,
+                addedBy:result.name
+            });  
+            await hero.save((err,hero)=>{
+                if(err){
+                    console.error(err);
+                }else{
+                    res.status(200).send(hero)
+                }
+            }) 
+        }
         }).catch((err) => {
             console.log(err);
         });
+
+        
     },
+    updateHero:(req,res)=>{
+
+        let id=req.body.id;
+        let heroData=req.body;
+        console.log("REQQ:",heroData);
+        const imagePath = `${process.env.BASE_URL}/images/` + req.file.filename; 
+
+        let token=req.headers.authorization.split(' ')[1];
+        let payload=jwt.verify(token,process.env.SECRET_KEY);
+        let userId=payload.subject;
+        userModel.findOne({_id:userId}).then(async (recordresult) => {
+        if(!result){
+                res.status(401).send('No User Found')
+        }else{
+            heroModel.findOneAndUpdate({_id:id},{
+                name:heroData.name,
+                imagePath:imagePath,
+                description:heroData.description,
+                updatedBy:result.name
+            },{upsert:true,returnOriginal: false}).then((record) => {
+                console.log("updated,:",record)
+                res.status(200).send(record)
+            }).catch((err) => {
+                console.log(err);
+            });
+        }
+        }).catch((err) => {
+            console.log(err);
+        });
+
+        
+    },
+    updateHeroDetails:(req,res)=>{
+        let id=req.body.id;
+        console.log("REQ:",req.body);
+        let heroData=req.body; 
+
+        let token=req.headers.authorization.split(' ')[1];
+        let payload=jwt.verify(token,process.env.SECRET_KEY);
+        let userId=payload.subject;
+        userModel.findOne({_id:userId}).then(async (result) => {
+        if(!result){
+                res.status(401).send('No User Found')
+        }else{
+            heroModel.findOneAndUpdate({_id:id},{
+                name:heroData.name,
+                description:heroData.description,
+                updatedBy:result.name
+            },{upsert:true,returnOriginal: false}).then((record) => {
+                console.log("Updated:", record);
+                res.status(200).send(record)
+            }).catch((err) => {
+                console.log(err);
+            });
+        }
+        }).catch((err) => {
+            console.log(err);
+        });
+
+        
+    },
+    
 
     deleteHero:(req,res)=>{
         
@@ -113,6 +185,7 @@ const userController={
     },
     searchHero:(req,res)=>{
         let input =req.query.name;
+        console.log("INP:",input);
         heroModel.find({name:{$regex:input,$options:'i'}}).then((result) => {
             res.status(200).send(result)
         }).catch((err) => {
